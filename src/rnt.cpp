@@ -1,43 +1,46 @@
 #include "rnt.hpp"
 
 
-std::string rnt::options(_options s) {
+std::string rnt::option(_option s) {
     switch(s){
-        case _options::Identifier: return "ServerLayout";
-        case _options::Screen: return "Screen";
-        case _options::InputDevice: return "InputDevice";
-        case _options::ModulePath: return "ModulePath";
-        case _options::FontPath: return "FontPath";
-        case _options::Load: return "Load";
-        case _options::Driver: return "Driver";
-        case _options::VendorName: return "Option";
-        case _options::ModelName: return "VendorName";
-        case _options::BusID: return "BusID";
-        case _options::Viewport: return "Viewport";
-        case _options::Depth: return "Depth";
+        case _option::Identifier: return "ServerLayout";
+        case _option::Screen: return "Screen";
+        case _option::InputDevice: return "InputDevice";
+        case _option::ModulePath: return "ModulePath";
+        case _option::FontPath: return "FontPath";
+        case _option::Load: return "Load";
+        case _option::Driver: return "Driver";
+        case _option::VendorName: return "Option";
+        case _option::ModelName: return "VendorName";
+        case _option::BusID: return "BusID";
+        case _option::Viewport: return "Viewport";
+        case _option::Depth: return "Depth";
+        case _option::NOWAY: return "<empty>";
         default: throw std::invalid_argument("Unimpliment item");
     }
 }
 
-std::string rnt::tags(_tags s) {
+std::string rnt::tag(_tag s) {
     switch(s){
-        case _tags::Section: return "\"Section\"";
-        case _tags::EndSection: return "\"EndSection\"";
-        case _tags::SubSection: return "\"SubSection\"";
-        case _tags::EndSubSection: return "\"EndSubSection\"";
+        case _tag::Section: return "\"Section\"";
+        case _tag::EndSection: return "\"EndSection\"";
+        case _tag::SubSection: return "\"SubSection\"";
+        case _tag::EndSubSection: return "\"EndSubSection\"";
+        case _tag::NOWAY: return "<empty>";
         default: throw std::invalid_argument("Unimpliment item");
     }
 }
 
-std::string rnt::sections(_sections s) {
+std::string rnt::section(_section s) {
     switch(s){
-        case _sections::ServerLayout: return "\"ServerLayout\"";
-        case _sections::Module: return "\"Module\"";
-        case _sections::Files: return "\"Module\"";
-        case _sections::InputDevice: return "\"InputDevice\"";
-        case _sections::Monitor: return "\"Monitor\"";
-        case _sections::Device: return "\"Device\"";
-        case _sections::Screen: return "\"Screen\"";
+        case _section::ServerLayout: return "\"ServerLayout\"";
+        case _section::Module: return "\"Module\"";
+        case _section::Files: return "\"Module\"";
+        case _section::InputDevice: return "\"InputDevice\"";
+        case _section::Monitor: return "\"Monitor\"";
+        case _section::Device: return "\"Device\"";
+        case _section::Screen: return "\"Screen\"";
+        case _section::NOWAY: return "<empty>";
         default: throw std::invalid_argument("Unimpliment item");
     }
 }
@@ -62,7 +65,7 @@ std::string rnt::sections(_sections s) {
 //     }
 // }
 
-// std::vector<std::vector<std::string>> rnt::xConfigurator::generate_driver_section(_sections, _type)
+// std::vector<std::vector<std::string>> rnt::xConfigurator::generate_driver_section(_section, _type)
 // {
 //     std::vector<std::vector<std::string>> result;
 
@@ -134,10 +137,10 @@ std::string rnt::sections(_sections s) {
 // }
 
 // std::vector<std::vector<std::string>>
-//     rnt::xConfigurator::find_option(_options opt)
+//     rnt::xConfigurator::find_option(_option opt)
 // {
 //     std::vector<std::vector<std::string>> result;
-//     std::string opt_str = rnt::options(opt);
+//     std::string opt_str = rnt::option(opt);
 //     for(const auto& line : this->conf){
 //         for(const auto& word : line){
 //             if(word == opt_str){
@@ -209,15 +212,15 @@ std::string rnt::sections(_sections s) {
     
 //     {
 //         if(state){
-//             conf_buff.insert(conf_buff.end() - 1 ,generate_option(_options::Option, {"\"TearFree\"", "\"true\""}));
+//             conf_buff.insert(conf_buff.end() - 1 ,generate_option(_option::Option, {"\"TearFree\"", "\"true\""}));
 //         } else {
-//             conf_buff.insert(conf_buff.end() - 1 ,generate_option(_options::Option, {"\"TearFree\"", "\"true\""}));
+//             conf_buff.insert(conf_buff.end() - 1 ,generate_option(_option::Option, {"\"TearFree\"", "\"true\""}));
 //         }
 //     }
 //     return 0;
 // }
 
-// std::vector<std::string> rnt::xConfigurator::generate_option(_options opt, std::vector<std::string> params)
+// std::vector<std::string> rnt::xConfigurator::generate_option(_option opt, std::vector<std::string> params)
 // {
 //     std::vector<std::string> result;
 //     result.push_back("Option");
@@ -254,6 +257,21 @@ int rnt::textEditor::show()
     return 0;
 }
 
+int rnt::textEditor::show_tag_table()
+{
+    
+    for(const auto& line : this->tag_table){
+        const _section& section_inline = line.sec.value();
+        const _option& option_inline = line.opt.value();
+        std::cout << XDR_PREF << line.n << " | " << section(section_inline) << " | " << option(option_inline) << " :: ";
+        for(const auto& _word : line.line){
+            std::cout << _word << " ";
+        }
+        std::cout << "\n";
+    }
+    return 0;
+}
+
 int rnt::textEditor::load()
 {   
     std::ifstream input(this->path);
@@ -265,8 +283,8 @@ int rnt::textEditor::load()
     size_t line_pos = 0;
     std::string buff_line;
     //
-    _sections curr_sec;
-    _options opt_var;
+    _section curr_sec;
+    _option opt_var;
     //
     while (std::getline(input, buff_line))
     {
@@ -290,31 +308,88 @@ int rnt::textEditor::load()
     return 0;
 }
 
+bool rnt::textEditor::is_word_exist(std::string querry)
+{
+    for(const auto& line : this->text){
+        for(const auto& word : line) { 
+            if(word == querry){
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+int rnt::textEditor::insert_line(size_t pos, std::vector<std::string> line)
+{
+    auto it = this->text.begin();
+    std::advance(it, pos);
+    this->text.insert(it,line);
+    return 0;
+}
+
+int rnt::textEditor::delete_line(size_t pos)
+{   
+    this->text.erase(this->text.begin() + pos);
+    return 0;
+}
+
 int rnt::textEditor::add_line_in_tag_table(const rnt::line_table & line)
 {
     this->tag_table.push_back(line);
 }
-
-rnt::_sections rnt::check_sec(std::string& word)
+/// @brief same with load but for tag_table
+/// @return exit code;
+int rnt::textEditor::reload_tag_table()
 {
-    for(size_t i = 0; i < static_cast<int>(_sections::NOWAY); ++i){
-        std::string _buff = sections(static_cast<_sections>(i));
-        if(word == _buff){
-            return static_cast<_sections>(i);
+    this->tag_table.clear();
+
+
+    size_t line_pos = 0;
+    std::string buff_line;
+    // std::string word;
+    //
+    _section curr_sec;
+    _option opt_var;
+    //
+    for(const auto& line : this->text)
+    {   
+        for(const auto& word : line){
+            std::string buff_word = word;
+            if(check_sec(buff_word) != _section::NOWAY || check_opt(buff_word) != _option::NOWAY){
+                curr_sec = check_sec(buff_word);
+                opt_var = check_opt(buff_word);  
+            }
         }
+        add_line_in_tag_table({line_pos, curr_sec, opt_var, line});
+        line_pos++;
     }
-    return _sections::NOWAY;
+    
+    
+    return 0;
 }
 
-rnt::_options rnt::check_opt(std::string& word)
+rnt::_section rnt::check_sec(std::string& word)
 {
-    for(size_t i = 0; i < static_cast<int>(_options::NOWAY); ++i){
-        std::string _buff = options(static_cast<_options>(i));
+    for(size_t i = 0; i < static_cast<int>(_section::NOWAY); ++i){
+        std::string _buff = section(static_cast<_section>(i));
         if(word == _buff){
-            return static_cast<_options>(i);
+            return static_cast<_section>(i);
         }
     }
-    return _options::NOWAY;
+    
+    return _section::NOWAY;
+}
+
+rnt::_option rnt::check_opt(std::string& word)
+{
+    for(size_t i = 0; i < static_cast<int>(_option::NOWAY); ++i){
+        std::string _buff = option(static_cast<_option>(i));
+        if(word == _buff){
+            return static_cast<_option>(i);
+        }
+    }
+    return _option::NOWAY;
 }
 
 

@@ -20,7 +20,7 @@ namespace rnt{
         INTEL
     };
 
-    enum class _options{
+    enum class _option{
         Identifier,
         Screen,
         InputDevice,
@@ -37,7 +37,7 @@ namespace rnt{
         NOWAY
     };
 
-    enum class _tags{
+    enum class _tag{
         Section,
         EndSection,
         SubSection,
@@ -45,7 +45,7 @@ namespace rnt{
         NOWAY
     };
 
-    enum class _sections{
+    enum class _section{
         ServerLayout,
         Module,
         Files,
@@ -58,16 +58,16 @@ namespace rnt{
 
     
 
-    std::string options(_options s);
-    std::string tags(_tags s);
-    std::string sections(_sections s);
+    std::string option(_option s);
+    std::string tag(_tag s);
+    std::string section(_section s);
 
     //
     struct line_table{
         size_t n;
-        std::optional<_sections> sec;
-        //std::optional<_tags> tag;
-        std::optional<_options> opt;
+        std::optional<_section> sec;
+        //std::optional<_tag> tag;
+        std::optional<_option> opt;
         std::vector<std::string> line;
     };
     //
@@ -86,17 +86,20 @@ namespace rnt{
         
             virtual int create();
             virtual int show();
+            virtual int show_tag_table();
             virtual int load();
             // Text
             virtual bool is_word_exist(std::string);
-            virtual int insert_line(std::vector<std::string>);
+            virtual int insert_line(size_t, std::vector<std::string>);
             virtual int delete_line(size_t); 
             virtual int add_line_in_tag_table(const rnt::line_table&);
+            virtual int reload_tag_table();
+            
 
 
 
-            //std::vector<std::vector<std::string>> generate_driver_section(_sections, _type);
-            //std::vector<std::vector<std::string>> generate_screen_section(_sections);
+            //std::vector<std::vector<std::string>> generate_driver_section(_section, _type);
+            //std::vector<std::vector<std::string>> generate_screen_section(_section);
             //bool is_word_exist(std::string);
 
             //
@@ -104,15 +107,15 @@ namespace rnt{
             // //void show();
             // void show(std::vector<std::vector<std::string>>);
             // std::vector<std::vector<std::string>> 
-            //     find_option(_options);
-            // void change_param(std::string, std::string, _options, _sections);
+            //     find_option(_option);
+            // void change_param(std::string, std::string, _option, _section);
             // int save_conf();
             // int insert_line(size_t, std::vector<std::string>);    
             // int delete_line(int);
             // //
             // int change_tearing(size_t, bool);
             // //
-            // std::vector<std::string> generate_option(_options,std::vector<std::string>);
+            // std::vector<std::string> generate_option(_option,std::vector<std::string>);
     
     };
 
@@ -122,7 +125,7 @@ namespace rnt{
         
     };
 
-    _sections check_sec(std::string&);
-    _options check_opt(std::string&);
+    _section check_sec(std::string&);
+    _option check_opt(std::string&);
     int reload_config();
 }
