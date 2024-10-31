@@ -58,6 +58,14 @@ std::string rnt::section(_section s) {
 
 //------------------------------------------------------------
 
+rnt::textEditor::textEditor()
+{
+    this->path = "/etc/X11/xorg.conf";
+    if(!fs::exists(this->path)){
+        system("sudo Xorg :2 -configure");
+        system("sudo cp /root/xorg.conf.new /etc/X11/xorg.conf");
+    }
+}
 
 rnt::textEditor::textEditor(fs::path path)
 {
@@ -80,6 +88,8 @@ int rnt::textEditor::create()
 int rnt::textEditor::show()
 {
     for(const auto& line : this->text){
+        std::cout << RNT_PR;
+        int t_modes = 0;
         for(const auto& word : line){
             std::cout << word << " ";
         }
@@ -129,7 +139,6 @@ int rnt::textEditor::load()
         }
         if(!word_line.empty()){
             this->text.push_back(word_line);
-            //add_line_in_tag_table({line_pos, check_sec(word), check_opt(word), word_line});
         }
         line_pos++;
     }
@@ -177,14 +186,13 @@ int rnt::textEditor::reload_tag_table()
         std::string buff_line_fw;
         _section curr_sec = _section::NOWAY;
         _option curr_opt = _option::NOWAY;
-        //
+        // be careful hero.... check out positions carefuly 
         for(const auto& line : this->text){   
             auto buff_line_fw = line;
             if (buff_line_fw[0] == tag(_tag::Section)){
                 //std::cerr << buff_line_fw[0].c_str();
                 curr_sec = check_sec(buff_line_fw[1]);
             }
-
             if (check_opt(buff_line_fw[0]) != _option::NOWAY){
                 curr_opt = check_opt(buff_line_fw[0]);
             }
@@ -231,3 +239,7 @@ rnt::_tag rnt::check_tag(std::string& word){
     return _tag::NOWAY;
 }
 
+rnt::Configurator::Configurator(fs::path path)
+{
+    this->process = textEditor(path);    
+}
