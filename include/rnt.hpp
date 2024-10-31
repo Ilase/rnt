@@ -7,12 +7,19 @@
 #include <algorithm>
 #include <optional>
 #include <unordered_map>
+#include <exception>
 
-#define XDR_PREF "[RNT] "
+#define RNT_PR "[RNT] "
+#define RNT_ERR "[RNT-ERR] "
 
 namespace fs = std::filesystem;
 
 namespace rnt{
+    /// @brief Handler for my poops
+    /// @param  
+    /// @param  
+    void rnt_handler(std::exception&, std::string);
+
 
     enum _type{
         NVIDIA,
@@ -23,8 +30,8 @@ namespace rnt{
     enum class _option{
         Identifier,
         Screen,
-        InputDevice,
         ModulePath,
+        InputDevice,
         FontPath,
         Load,
         Driver,
@@ -57,7 +64,9 @@ namespace rnt{
     };  
 
     
-
+    /// @brief Enum converts to c string 
+    /// @param  std::sting s 
+    /// @return string equvalent 
     std::string option(_option s);
     std::string tag(_tag s);
     std::string section(_section s);
@@ -79,44 +88,26 @@ namespace rnt{
             //std::vector<size_t> device_pos;
         public:
             //----------------------------------------------------
-            textEditor();    
+            //textEditor();    
             textEditor(fs::path);
             //----------------------------------------------------
             // File 
         
-            virtual int create();
-            virtual int show();
-            virtual int show_tag_table();
-            virtual int load();
+            int create();
+            int show();
+            int show_tag_table();
+            int load();
             // Text
-            virtual bool is_word_exist(std::string);
-            virtual int insert_line(size_t, std::vector<std::string>);
-            virtual int delete_line(size_t); 
-            virtual int add_line_in_tag_table(const rnt::line_table&);
-            virtual int reload_tag_table();
+            bool is_word_exist(std::string);
+            int insert_line(size_t, std::vector<std::string>);
+            int delete_line(size_t); 
+            int add_line_in_tag_table(const rnt::line_table&);
+            int reload_tag_table();
             
 
 
 
-            //std::vector<std::vector<std::string>> generate_driver_section(_section, _type);
-            //std::vector<std::vector<std::string>> generate_screen_section(_section);
-            //bool is_word_exist(std::string);
-
-            //
-            // int load();
-            // //void show();
-            // void show(std::vector<std::vector<std::string>>);
-            // std::vector<std::vector<std::string>> 
-            //     find_option(_option);
-            // void change_param(std::string, std::string, _option, _section);
-            // int save_conf();
-            // int insert_line(size_t, std::vector<std::string>);    
-            // int delete_line(int);
-            // //
-            // int change_tearing(size_t, bool);
-            // //
-            // std::vector<std::string> generate_option(_option,std::vector<std::string>);
-    
+   
     };
 
 
@@ -127,5 +118,6 @@ namespace rnt{
 
     _section check_sec(std::string&);
     _option check_opt(std::string&);
+    _tag check_tag(std::string&);
     int reload_config();
 }
