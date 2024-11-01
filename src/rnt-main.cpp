@@ -9,10 +9,7 @@ int main(int argc, char const *argv[]){
     // test.show();
     // test.reload_tag_table();
     // test.show_tag_table();
-    rnt::Configurator app("/etc/X11/xorg.conf");
-    app.load();
-    app.reload_tag_table();
-    app.show();
+
     
     return 0;
 }
