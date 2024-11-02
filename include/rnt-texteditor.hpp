@@ -13,7 +13,7 @@ namespace rnt{
         std::vector<std::string> line;
     };
     struct videoadapter{
-        _type ad_type;
+        _vendor ad_type;
         std::string ad_name;
     };
     //

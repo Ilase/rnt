@@ -48,7 +48,15 @@ std::string rnt::section(_section s) {
         // default: throw std::invalid_argument("Unimpliment item");
     }
 }
-
+std::string rnt::vendor(_vendor s){
+    switch(s){
+        case _vendor::Amd: return "AMD";
+        case _vendor::Nvidia: return "NVIDEA";
+        case _vendor::Intel:return "Intel";
+        case _vendor::NOWAY: return "<empty>";
+        default: return "invalid section";
+    }
+}
 
 
 rnt::_section rnt::check_sec(std::string& word)
@@ -82,4 +90,12 @@ rnt::_tag rnt::check_tag(std::string& word){
         }
     }
     return _tag::NOWAY;
+}
+rnt::_vendor rnt::check_vend_t(std::string& word){
+    for(size_t i = 0; i < static_cast<int>(_vendor::NOWAY); ++i){
+        std::string _buff = vendor(static_cast<_vendor>(i));
+        if(word == _buff){
+            return static_cast<_vendor>(i);
+        }
+    }
 }

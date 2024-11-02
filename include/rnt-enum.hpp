@@ -3,10 +3,15 @@
 #include "rnt.hpp"
 namespace rnt {
 
-   enum _type{
-        NVIDIA,
-        AMD,
-        INTEL
+//====================================//
+//          enum declarations         //
+//====================================//
+    
+    enum _vendor{
+        Nvidia,
+        Amd,
+        Intel,
+        NOWAY
     };
 
     enum class _option{
@@ -47,17 +52,16 @@ namespace rnt {
     };  
 
     
-    /// @brief Enum converts to c string 
-    /// @param  std::sting s 
-    /// @return string equvalent 
-    std::string option(_option s);
-    std::string tag(_tag s);
-    std::string section(_section s);
+    std::string     option(_option);
+    std::string     tag(_tag);
+    std::string     section(_section);
+    std::string     vendor(_vendor);
 
-    _section check_sec(std::string&);
-    _option check_opt(std::string&);
-    _tag check_tag(std::string&);
-    //int reload_config();
+    _section        check_sec(std::string&);
+    _option         check_opt(std::string&);
+    _tag            check_tag(std::string&);
+    _vendor    check_vend_t(std::string&);
+    
 
 }
 
