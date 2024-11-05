@@ -18,8 +18,9 @@ namespace rnt{
     class PciData{
             std::vector<DataField> pci_table;
         public:
-            PciData();
-            int parce_pci_table();            
+            //PciData();
+            int parce_pci_table();
+            int show_table();            
 
 
 

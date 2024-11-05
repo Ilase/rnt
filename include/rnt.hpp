@@ -38,6 +38,10 @@ namespace rnt{
     class MainApp;
     class textEditor;
     //================================================
+    
+    /// @brief Shell parser for ldpci or something else
+    /// @param cmd const char* 
+    /// @return table of words
     std::vector<std::vector<std::string>> sys_call(const char* cmd);
     //
 

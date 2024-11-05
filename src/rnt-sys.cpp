@@ -9,3 +9,10 @@ int rnt::PciData::parce_pci_table()
     }
     return 0;
 }
+
+int rnt::PciData::show_table(){
+    for(const auto& line : this->pci_table){
+        std::cout << line.id_bus << "\t" << line.id_vendor << "\t" << line.pci_id  << "\n";
+    }
+    return 0;
+}
