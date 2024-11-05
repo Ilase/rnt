@@ -8,10 +8,10 @@ namespace rnt{
 
 
     struct DataField{
-        std::string id_bus;
-        std::string id_vendor;
-        std::string pci_id;
-        std::string revision_id;
+        // std::string id_bus;
+        // std::string id_vendor;
+        // std::string pci_id;
+        // std::string revision_id;
         _vendor vendor_type;
         std::string kernel_driver;
     };

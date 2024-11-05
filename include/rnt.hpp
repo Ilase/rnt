@@ -33,7 +33,7 @@ namespace rnt{
     
     //================================================
     //defifnitions
-    class Data;
+    class PciData;
     class Configurator;
     class MainApp;
     class textEditor;

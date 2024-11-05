@@ -4,7 +4,8 @@ CXXFLAGS = -Iinclude
 SRCS = src/rnt.cpp \
 	   src/rnt-main.cpp \
 	   src/rnt-enum.cpp \
-	   src/rnt-texteditor.cpp
+	   src/rnt-texteditor.cpp \
+	   src/rnt-sys.cpp
 OBJS = $(SRCS:.cpp=.o) # convert .cpp to .o
 TARGET = build/rnt
 

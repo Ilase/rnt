@@ -60,7 +60,7 @@ namespace rnt {
     _section        check_sec(std::string&);
     _option         check_opt(std::string&);
     _tag            check_tag(std::string&);
-    _vendor    check_vend_t(std::string&);
+    _vendor         check_vend_t(std::string&);
     
 
 }

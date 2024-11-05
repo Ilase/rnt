@@ -98,4 +98,5 @@ rnt::_vendor rnt::check_vend_t(std::string& word){
             return static_cast<_vendor>(i);
         }
     }
+    return _vendor::NOWAY;
 }
