@@ -16,6 +16,9 @@
 #include <filesystem>
 #include <type_traits>
 #include <regex>
+#include <functional>
+#include <variant>
+#include <getopt.h>
 
 #define RNT_PR "[RNT] "
 #define RNT_ERR "[RNT-ERR] "
@@ -31,13 +34,13 @@ namespace rnt{
     void rnt_handler(std::exception&, std::string);
 
     
-    //================================================
-    //defifnitions
+    //===============================================================//
     class PciData;
     class Configurator;
     class MainApp;
     class textEditor;
-    //================================================
+    class MainApp;
+    //===============================================================//
     
     /// @brief Shell parser for ldpci or something else
     /// @param cmd const char* 

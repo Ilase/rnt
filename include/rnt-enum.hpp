@@ -62,10 +62,16 @@ namespace rnt {
     _tag            check_tag(std::string&);
     _vendor         check_vend_t(std::string&);
     
+    
 
 //====================================//
 //------------------------------------//
 //====================================//
+
+    bool operator==(std::string, const _vendor&);
+    bool operator==(std::string, const _option&);
+    bool operator==(std::string, const _section&);
+    bool operator==(std::string, const _tag&);
 }
 
 #endif

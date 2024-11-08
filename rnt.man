@@ -1,0 +1,3 @@
+.\ Manpage for rnt
+.\ Contact to me for nadovet za sheku
+.TH man 8 "08 Nov 2024" "1.0" "rnt man page"

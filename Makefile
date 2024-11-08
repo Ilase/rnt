@@ -1,21 +1,28 @@
-CXX = g++
-CXXFLAGS = -Iinclude
+CXX= g++
+CXXFLAGS= -Iinclude
 
 SRCS = src/rnt.cpp \
-	   src/rnt-main.cpp \
-	   src/rnt-enum.cpp \
-	   src/rnt-texteditor.cpp \
-	   src/rnt-sys.cpp
-OBJS = $(SRCS:.cpp=.o) # convert .cpp to .o
-TARGET = build/rnt
+       src/rnt-mainapp.cpp \
+       src/rnt-enum.cpp \
+       src/rnt-texteditor.cpp \
+       src/rnt-sys.cpp \
+       src/rnt-configurator.cpp \
+       src/rnt-main.cpp \
+
+
+OBJS=$(SRCS:.cpp=.o) 
+TARGET=build/rnt
+
+.PHONY: all clean
 
 all: $(TARGET)
+
+%.o: %.cpp
+	@echo "[--] Building object $@"
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
 $(TARGET): $(OBJS)
 	$(CXX) $(OBJS) -o $(TARGET)
 
-%.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@
 clean:
 	rm -f $(OBJS) $(TARGET)
-
-.PHONY: all clean

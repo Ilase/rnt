@@ -51,7 +51,7 @@ std::string rnt::section(_section s) {
 std::string rnt::vendor(_vendor s){
     switch(s){
         case _vendor::Amd: return "AMD";
-        case _vendor::Nvidia: return "NVIDEA";
+        case _vendor::Nvidia: return "NVIDIA";
         case _vendor::Intel:return "Intel";
         case _vendor::NOWAY: return "<empty>";
         default: return "invalid section";
@@ -99,4 +99,41 @@ rnt::_vendor rnt::check_vend_t(std::string& word){
         }
     }
     return _vendor::NOWAY;
+}
+
+bool rnt::operator==(std::string str, const _vendor &v)
+{
+    std::string result = "";
+    switch(v){
+        case _vendor::Amd: result = "AMD";
+        case _vendor::Nvidia: result = "NVIDIA";
+        case _vendor::Intel:result = "Intel";
+    }
+    if(str == result){
+       return true; 
+    }
+    return false;
+}
+
+bool rnt::operator==(std::string str, const _option &o)
+{
+    std::string result = "";
+    switch(o){
+        case _option::Identifier: result = "Identifier";
+        case _option::Screen: result = "Screen";
+        case _option::InputDevice: result = "InputDevice";
+        case _option::ModulePath: result = "ModulePath";
+        case _option::FontPath: result = "FontPath";
+        case _option::Load: result = "Load";
+        case _option::Driver: result = "Driver";
+        case _option::VendorName: result = "Option";
+        case _option::ModelName: result = "VendorName";
+        case _option::BusID: result = "BusID";
+        case _option::Viewport: result ="Viewport";
+        case _option::Depth: result = "Depth";
+    }
+    if(str == result){
+       return true; 
+    }
+    return false;
 }

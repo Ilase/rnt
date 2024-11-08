@@ -21,7 +21,7 @@ namespace rnt{
             //PciData();
             int parce_pci_table();
             int show_table();            
-
+            
 
 
         friend class Configurator;
