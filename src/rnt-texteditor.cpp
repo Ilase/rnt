@@ -166,6 +166,7 @@ int rnt::textEditor::reload_tag_table()
     return 0;
 }
 
+
 int rnt::textEditor::set_path(fs::path _path)
 {
     this->path = _path;

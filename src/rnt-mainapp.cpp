@@ -17,17 +17,19 @@ rnt::MainApp::MainApp(int _argc , const char ** _argv/*std::vector<std::string> 
 int rnt::MainApp::start(){
     int c;
     std::string gen_path; 
+    bool automatic;
     while((c = getopt(this->argc, argv, "g:v:A")) != -1){
         if(argc != 1){
             switch(c){
                 case 'g': // generate
                     std::cout << RNT_PR << "Generating config in file: " << optarg << "\n";
+                    
                     gen_path = optarg;
                     break;
                 case 'v': // vendor
                     std::cout << "<empty>\n";
                     break;
-                case 'A':
+                case 'A': // automatic
                     break;
                 default:
                     //std::cout << RNT_PR << "Unknown parameter!\n";
