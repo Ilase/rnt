@@ -4,6 +4,7 @@
 #include "rnt-sys.hpp"
 #include "rnt-enum.hpp"
 namespace rnt{
+    /// @brief Provides main changes in textEditor::text and or make opposite files in xorg.conf.d/
     class Configurator{
         _vendor vendor;
 

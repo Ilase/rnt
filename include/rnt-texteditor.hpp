@@ -17,6 +17,7 @@ namespace rnt{
         std::string ad_name;
     };
     //
+    /// @brief Main functios for conf edit
     class textEditor{
         public:
             std::vector<std::vector<std::string>> text;
