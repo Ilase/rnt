@@ -1,7 +1,7 @@
 #ifndef _RNT_MAINAPP_HPP
 #define _RNT_MAINAPP_HPP
 #include "rnt.hpp"
-
+#include "rnt-sys.hpp"
 namespace rnt{
 
     // const std::map<

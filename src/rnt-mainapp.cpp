@@ -15,10 +15,12 @@ rnt::MainApp::MainApp(int _argc , const char ** _argv/*std::vector<std::string> 
 // }
 
 int rnt::MainApp::start(){
+    PciData data;
+    data.parce_pci_table();
     int c;
     std::string gen_path; 
     bool automatic;
-    while((c = getopt(this->argc, argv, "g:v:A")) != -1){
+    while((c = getopt(this->argc, argv, "g:v:Al")) != -1){
         if(argc != 1){
             switch(c){
                 case 'g': // generate
@@ -30,6 +32,10 @@ int rnt::MainApp::start(){
                     std::cout << "<empty>\n";
                     break;
                 case 'A': // automatic
+                    break;
+                case 'l': //pci list
+                    
+                    data.show_table();
                     break;
                 default:
                     //std::cout << RNT_PR << "Unknown parameter!\n";

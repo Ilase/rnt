@@ -22,8 +22,9 @@
 
 #define RNT_PR "[RNT] "
 #define RNT_ERR "[RNT-ERR] "
+//#define DEBUG "[RNT-DEBUG] "
 
-
+using TextMatrix = std::vector<std::vector<std::string>>;
 
 namespace fs = std::filesystem;
 
@@ -32,8 +33,7 @@ namespace rnt{
     /// @param  exception from catch !
     /// @param  additional information;
     void rnt_handler(std::exception&, std::string);
-
-    
+    static const std::regex bus_id_pattern("[0-9]+:\\d.*\\.[0-9]+$");
     //===============================================================//
     class PciData;
     class Configurator;
@@ -45,8 +45,13 @@ namespace rnt{
     /// @brief Shell parser for ldpci or something else
     /// @param cmd const char* 
     /// @return table of words
-    std::vector<std::vector<std::string>> sys_call(const char* cmd);
+    TextMatrix sys_call(const char* cmd);
     //
+    
+    /// @brief Adding double comma to string
+    /// @param  input string
+    /// @return output string
+    std::string add_dc(std::string);
 
    
 

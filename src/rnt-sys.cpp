@@ -1,29 +1,47 @@
 #include "rnt-sys.hpp"
 
+rnt::PciData::PciData(){
+    parce_pci_table();
+}
+
 int rnt::PciData::parce_pci_table()
 {
-    std::vector<std::vector<std::string>> call_data = sys_call("lspci -k | grep -A 2 -E \"(VGA|3D)\"");
-    for(const auto& line : call_data){  
-        _vendor vnd_b;
-        std::string drv_b;
+    this->pci_table.clear();
+    std::vector<std::vector<std::string>> call_data = sys_call("lspci -k | grep -A 2 -E \"(VGA)\"");
+#ifdef DEBUG
+    for(const auto& line : call_data){
+        std::cout << DEBUG;
         for(const auto& word : line){
-            std::string buff_v = word;
-            if(buff_v == vendor(check_vend_t(buff_v))){
-                vnd_b = check_vend_t(buff_v);
+            std::cout << word << " ";
+        }
+        std::cout << "\n";
+    }
+#endif // DEBUG    
+    std::string _bus_id_f;
+    std::string _vendor_f;
+    std::string _driver_f;
+    for(const auto& line : call_data){  
+        for(const auto& word : line){
+            if(std::regex_match(word, bus_id_pattern)){
+                _bus_id_f = word;
             }
-            if(buff_v == "amdgpu" || buff_v == "nouveau" || buff_v == "i915"){
-                drv_b = buff_v;
+            if(word == "NVIDIA"){
+                _vendor_f = word;
             }
-            if(word == "--") this->pci_table.push_back({vnd_b, drv_b});
+            if(word == "noveau"){
+                _driver_f = word;
+            }
         }
     }
+    this->pci_table.push_back({_bus_id_f, check_vend_t(_vendor_f),_driver_f });
+
     return 0;
 }
 
 int rnt::PciData::show_table(){
     for(const auto& line : this->pci_table){
-        //std::cout << line.id_bus << "\t" << line.id_vendor << "\t" << line.pci_id  << "\n";
-        std::cout << line.kernel_driver << " " << line.vendor_type << "\n";
+        std::cout << line.id_bus << "\t" << line.vendor_type << "\t" << line.kernel_driver  << "\n";
+        //std::cout << line.kernel_driver << " " << line.vendor_type << "\n";
     }
     return 0;
 }
