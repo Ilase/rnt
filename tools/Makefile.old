@@ -1,19 +1,26 @@
 CXX= g++
 CXXFLAGS= -Iinclude
+SRC_DIR = src
+SRCS := $(wildcard *.cpp)
 
-SRCS = src/rnt.cpp \
+# SRCS = src/rnt.cpp \
        src/rnt-mainapp.cpp \
        src/rnt-enum.cpp \
        src/rnt-texteditor.cpp \
        src/rnt-sys.cpp \
        src/rnt-configurator.cpp \
-       src/rnt-main.cpp \
-
+       src/rnt-main.cpp 
+OBJ=build/obj
 
 OBJS=$(SRCS:.cpp=.o) 
 TARGET=build/rnt
 
 .PHONY: all clean
+
+show_o:
+	@echo $(OBJS)
+show_s:
+	@echo $(SRCS)
 
 all: $(TARGET)
 

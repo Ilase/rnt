@@ -105,6 +105,40 @@ int rnt::textEditor::write()
     return 0;
 }
 
+int rnt::textEditor::write(TextMatrix& input_text){
+    std::ofstream output(this->path);
+    if(!output.is_open()){
+        const std::string e = std::string("Unable open file [ " + this->path.string() + " ] for write");
+        std::cerr << RNT_ERR << e << "\n";
+    }else {
+        for(const auto& line : input_text){
+            for(const auto& word : line){
+                output << word << " ";           
+            }
+            output << "\n";
+        }
+    }
+    output.close();
+    return 0;
+}
+
+int rnt::textEditor::write(fs::path custom_path, TextMatrix input_text){
+    std::ofstream output(custom_path);
+    if(!output.is_open()){
+        const std::string e = std::string("Unable open file [ " + custom_path.string() + " ] for write");
+        std::cerr << RNT_ERR << e << "\n";
+    }else {
+        for(const auto& line : input_text){
+            for(const auto& word : line){
+                output << word << " ";           
+            }
+            output << "\n";
+        }
+    }
+    output.close();    
+    return 0;
+}
+
 bool rnt::textEditor::is_word_exist(std::string querry)
 {
     for(const auto& line : this->text){
@@ -165,6 +199,7 @@ int rnt::textEditor::reload_tag_table()
     }
     return 0;
 }
+
 
 int rnt::textEditor::set_path(fs::path _path)
 {

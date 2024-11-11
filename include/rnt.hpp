@@ -16,34 +16,42 @@
 #include <filesystem>
 #include <type_traits>
 #include <regex>
+#include <functional>
+#include <variant>
+#include <getopt.h>
 
 #define RNT_PR "[RNT] "
 #define RNT_ERR "[RNT-ERR] "
+//#define DEBUG "[RNT-DEBUG] "
 
-
+using TextMatrix = std::vector<std::vector<std::string>>;
 
 namespace fs = std::filesystem;
 
 namespace rnt{
     /// @brief Handler for my poops
-    /// @param  exception from catch !
-    /// @param  additional information;
+    /// @param exception from catch !
+    /// @param additional information;
     void rnt_handler(std::exception&, std::string);
-
-    
-    //================================================
-    //defifnitions
-    class Data;
+    static const std::regex bus_id_pattern("[0-9]+:\\d.*\\.[0-9]+$");
+    //===============================================================//
+    class PciData;
     class Configurator;
     class MainApp;
     class textEditor;
-    //================================================
+    class MainApp;
+    //===============================================================//
     
     /// @brief Shell parser for ldpci or something else
     /// @param cmd const char* 
     /// @return table of words
-    std::vector<std::vector<std::string>> sys_call(const char* cmd);
+    TextMatrix sys_call(const char* cmd);
     //
+    
+    /// @brief Adding double comma to string
+    /// @param input string
+    /// @return output string
+    std::string add_dc(std::string);
 
    
 

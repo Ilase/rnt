@@ -33,6 +33,10 @@ std::vector<std::vector<std::string>> rnt::sys_call(const char *cmd)
     return result;
 }
 
+std::string rnt::add_dc(std::string input){
+    return "\"" + input + "\"";
+};
+
 //------------------------------------------------------------
 
 
