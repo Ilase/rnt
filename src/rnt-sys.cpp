@@ -8,15 +8,15 @@ int rnt::PciData::parce_pci_table()
 {
     this->pci_table.clear();
     std::vector<std::vector<std::string>> call_data = sys_call("lspci -k | grep -A 2 -E \"(VGA)\"");
-#ifdef DEBUG
-    for(const auto& line : call_data){
-        std::cout << DEBUG;
-        for(const auto& word : line){
-            std::cout << word << " ";
-        }
-        std::cout << "\n";
-    }
-#endif // DEBUG    
+// #ifdef DEBUG
+//     for(const auto& line : call_data){
+//         std::cout << DEBUG;
+//         for(const auto& word : line){
+//             std::cout << word << " ";
+//         }
+//         std::cout << "\n";
+//     }
+// #endif // DEBUG    
     std::string _bus_id_f;
     std::string _vendor_f;
     std::string _driver_f;

@@ -54,9 +54,22 @@ std::string rnt::vendor(_vendor s){
         case _vendor::Nvidia: return "NVIDIA";
         case _vendor::Intel:return "Intel";
         case _vendor::NOWAY: return "<empty>";
-        default: return "invalid section";
+        default: return "invalid vendor";
     }
 }
+
+std::string rnt::driver(_driver s){
+    switch(s){
+        case _driver::intel: return add_dc("intel");
+        case _driver::amdgpu: return add_dc("amdgpu");
+        case _driver::nvidia: return add_dc("nvidia");
+        case _driver::modesetting: return add_dc("modesetting");
+        case _driver::noveau: return add_dc("noveau");
+        case _driver::i915: return add_dc("i915");
+        case _driver::NOWAY: return "<empty>";
+        default: return "invalid driver";
+    }
+};
 
 
 rnt::_section rnt::check_sec(std::string& word)
@@ -101,6 +114,16 @@ rnt::_vendor rnt::check_vend_t(std::string& word){
     return _vendor::NOWAY;
 }
 
+rnt::_driver rnt::check_driver(std::string& word){
+    for(size_t i = 0; i < static_cast<int>(_driver::NOWAY); ++i){
+        std::string _buff = driver(static_cast<_driver>(i));
+        if(word == _buff){
+            return static_cast<_driver>(i);
+        }
+    }   
+    return _driver::NOWAY;   
+}
+
 bool rnt::operator==(std::string str, const _vendor &v)
 {
     std::string result = "";
@@ -137,3 +160,4 @@ bool rnt::operator==(std::string str, const _option &o)
     }
     return false;
 }
+

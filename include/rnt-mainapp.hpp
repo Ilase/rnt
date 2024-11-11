@@ -2,6 +2,7 @@
 #define _RNT_MAINAPP_HPP
 #include "rnt.hpp"
 #include "rnt-sys.hpp"
+#include "rnt-configurator.hpp"
 namespace rnt{
 
     // const std::map<
@@ -19,7 +20,7 @@ namespace rnt{
         public:
             MainApp(int, const char ** /*std::vector<std::string>&*/);
             int start();
-            int show_args();
+            //int show_args();
     };
 
 }

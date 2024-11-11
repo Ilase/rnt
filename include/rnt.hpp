@@ -30,8 +30,8 @@ namespace fs = std::filesystem;
 
 namespace rnt{
     /// @brief Handler for my poops
-    /// @param  exception from catch !
-    /// @param  additional information;
+    /// @param exception from catch !
+    /// @param additional information;
     void rnt_handler(std::exception&, std::string);
     static const std::regex bus_id_pattern("[0-9]+:\\d.*\\.[0-9]+$");
     //===============================================================//
@@ -49,7 +49,7 @@ namespace rnt{
     //
     
     /// @brief Adding double comma to string
-    /// @param  input string
+    /// @param input string
     /// @return output string
     std::string add_dc(std::string);
 

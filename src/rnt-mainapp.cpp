@@ -6,17 +6,10 @@ rnt::MainApp::MainApp(int _argc , const char ** _argv/*std::vector<std::string> 
     this->argv = const_cast<char**>(_argv);
 }
 
-// int rnt::MainApp::show_args(){
-//     for(const auto & argument : this->){
-//         std::cout << argument << " ";
-//     }
-//     std::cout << std::endl;
-//     return 0;
-// }
-
 int rnt::MainApp::start(){
-    PciData data;
-    data.parce_pci_table();
+    //PciData data;
+    //data.parce_pci_table();
+    Configurator configurator;
     int c;
     std::string gen_path; 
     bool automatic;
@@ -25,8 +18,9 @@ int rnt::MainApp::start(){
             switch(c){
                 case 'g': // generate
                     std::cout << RNT_PR << "Generating config in file: " << optarg << "\n";
-                    
                     gen_path = optarg;
+                    gen_path = fs::path(gen_path, fs::path::format::auto_format);
+                    configurator.write(gen_path, configurator.generate_section_device("Card10", _vendor::Intel, "i915", "00:02.0"));
                     break;
                 case 'v': // vendor
                     std::cout << "<empty>\n";
@@ -34,11 +28,11 @@ int rnt::MainApp::start(){
                 case 'A': // automatic
                     break;
                 case 'l': //pci list
-                    
-                    data.show_table();
+                    std::cout << "List?\n";
+                    //data.show_table();
                     break;
                 default:
-                    //std::cout << RNT_PR << "Unknown parameter!\n";
+                    std::cout << RNT_PR << "Nothing to break!\n";
                     break;
             }
         }// } else {

@@ -20,11 +20,8 @@ namespace rnt{
         public:
             PciData();
             int parce_pci_table();
-            int show_table();            
-            
-
-
-        friend class Configurator;
+            int show_table();
+            // friend class Configurator;
     };
 
 }

@@ -37,6 +37,8 @@ namespace rnt{
             virtual int show_tag_table();
             virtual int load();
             virtual int write();
+            virtual int write(TextMatrix&);
+            virtual int write(fs::path, TextMatrix);
             // Text
             virtual bool is_word_exist(std::string);
             virtual int insert_line(size_t, std::vector<std::string>);
