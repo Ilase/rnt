@@ -20,7 +20,7 @@ int rnt::MainApp::start(){
                     std::cout << RNT_PR << "Generating config in file: " << optarg << "\n";
                     gen_path = optarg;
                     gen_path = fs::path(gen_path, fs::path::format::auto_format);
-                    configurator.write(gen_path, configurator.generate_section_device());
+                    //configurator.write(gen_path, configurator.generate_section_device());
                     break;
                 case 'v': // vendor
                     std::cout << "<empty>\n";
