@@ -8,10 +8,9 @@
 namespace rnt
 {
     /// @brief Provides main changes in textEditor::text and or make opposite files in xorg.conf.d/
-    class Configurator : public textEditor
-    {
-
+    class Configurator : public textEditor{
     public:
+        PciData data;
         Configurator();
         int configure_screen_setup(std::string scr_name);
         int configure_driver_setup();

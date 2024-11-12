@@ -35,6 +35,7 @@ namespace rnt{
     void rnt_handler(std::exception&, std::string);
     static const std::regex bus_id_pattern("[0-9]+:\\d.*\\.[0-9]+$");
     //===============================================================//
+    
     class PciData;
     class Configurator;
     class MainApp;

@@ -20,7 +20,7 @@ int rnt::MainApp::start(){
                     std::cout << RNT_PR << "Generating config in file: " << optarg << "\n";
                     gen_path = optarg;
                     gen_path = fs::path(gen_path, fs::path::format::auto_format);
-                    configurator.write(gen_path, configurator.generate_section_device("Card10", _vendor::Intel, "i915", "00:02.0"));
+                    configurator.write(gen_path, configurator.generate_section_device());
                     break;
                 case 'v': // vendor
                     std::cout << "<empty>\n";
@@ -28,8 +28,8 @@ int rnt::MainApp::start(){
                 case 'A': // automatic
                     break;
                 case 'l': //pci list
-                    std::cout << "List?\n";
-                    //data.show_table();
+                    //configurator.data.parce_pci_table();
+                    configurator.data.show_table();
                     break;
                 default:
                     std::cout << RNT_PR << "Nothing to break!\n";

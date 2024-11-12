@@ -60,12 +60,12 @@ std::string rnt::vendor(_vendor s){
 
 std::string rnt::driver(_driver s){
     switch(s){
-        case _driver::intel: return add_dc("intel");
-        case _driver::amdgpu: return add_dc("amdgpu");
-        case _driver::nvidia: return add_dc("nvidia");
-        case _driver::modesetting: return add_dc("modesetting");
-        case _driver::noveau: return add_dc("noveau");
-        case _driver::i915: return add_dc("i915");
+        case _driver::intel: return "intel";
+        case _driver::amdgpu: return "amdgpu";
+        case _driver::nvidia: return "nvidia";
+        case _driver::modesetting: return "modesetting";
+        case _driver::noveau: return "nouveau";
+        case _driver::i915: return "i915";
         case _driver::NOWAY: return "<empty>";
         default: return "invalid driver";
     }
@@ -161,3 +161,19 @@ bool rnt::operator==(std::string str, const _option &o)
     return false;
 }
 
+bool rnt::operator==(std::string str, const _driver &d)
+{
+    std::string result = "";
+    switch(d){
+        case _driver::intel: result = add_dc("intel");
+        case _driver::amdgpu: result = add_dc("amdgpu");
+        case _driver::nvidia: result = add_dc("nvidia");
+        case _driver::modesetting: result = add_dc("modesetting");
+        case _driver::noveau: result = add_dc("noveau");
+        case _driver::i915: result = add_dc("i915");
+    } 
+    if(str == result){
+        return true;
+    }
+    return false;
+}

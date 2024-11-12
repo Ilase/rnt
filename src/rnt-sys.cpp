@@ -7,38 +7,33 @@ rnt::PciData::PciData(){
 int rnt::PciData::parce_pci_table()
 {
     this->pci_table.clear();
-    std::vector<std::vector<std::string>> call_data = sys_call("lspci -k | grep -A 2 -E \"(VGA)\"");
-// #ifdef DEBUG
-//     for(const auto& line : call_data){
-//         std::cout << DEBUG;
-//         for(const auto& word : line){
-//             std::cout << word << " ";
-//         }
-//         std::cout << "\n";
-//     }
-// #endif // DEBUG    
-    std::string _bus_id_f;
-    std::string _vendor_f;
-    std::string _driver_f;
-    for(const auto& line : call_data){  
-        for(const auto& word : line){
-            if(std::regex_match(word, bus_id_pattern)){
-                _bus_id_f = word;
-            }
-            if(word == "NVIDIA"){
-                _vendor_f = word;
-            }
-            if(word == "noveau"){
-                _driver_f = word;
+    TextMatrix call_data = sys_call("lspci -k | grep -A 2 -E \"(VGA|3D)\""); 
+    DataField buff_field;
+    for(auto& line : call_data){
+        for (auto& word : line){
+            if(word == "--"){this->pci_table.push_back(buff_field);} else { 
+                if(std::regex_match(word, bus_id_pattern)){
+                    buff_field.id_bus = word;
+                }
+                if(word == vendor(check_vend_t(word))){
+                    buff_field.vendor_type = word;
+                }
+                if(word == driver(check_driver(word))){
+                    buff_field.kernel_driver = word;
+                }
             }
         }
     }
-    this->pci_table.push_back({_bus_id_f, check_vend_t(_vendor_f),_driver_f });
+    this->pci_table.push_back(buff_field);
+    
+
 
     return 0;
 }
 
 int rnt::PciData::show_table(){
+    std::cout << "List short vidoadapters: \n"
+        << "Bus Id\tVendor\tDriver\n";    
     for(const auto& line : this->pci_table){
         std::cout << line.id_bus << "\t" << line.vendor_type << "\t" << line.kernel_driver  << "\n";
         //std::cout << line.kernel_driver << " " << line.vendor_type << "\n";

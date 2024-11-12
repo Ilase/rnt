@@ -9,10 +9,7 @@ namespace rnt{
 
     struct DataField{
         std::string id_bus;
-        //std::string vendor;
-        // std::string pci_id;
-        // std::string revision_id;
-        _vendor vendor_type;
+        std::string vendor_type;
         std::string kernel_driver;
     };
     class PciData{
@@ -21,7 +18,7 @@ namespace rnt{
             PciData();
             int parce_pci_table();
             int show_table();
-            // friend class Configurator;
+            
     };
 
 }
