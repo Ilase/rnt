@@ -1,28 +1,28 @@
-CXX= g++
-CXXFLAGS= -Iinclude
-
-SRCS = src/rnt.cpp \
-       src/rnt-mainapp.cpp \
-       src/rnt-enum.cpp \
-       src/rnt-texteditor.cpp \
-       src/rnt-sys.cpp \
-       src/rnt-configurator.cpp \
-       src/rnt-main.cpp \
+CXX = g++
+CXXFLAGS = -Iinclude
+BUILD = build
+PREFIX = "[RNT] "
+SRCS = $(wildcard src/*.cpp)
 
 
-OBJS=$(SRCS:.cpp=.o) 
-TARGET=build/rnt
+OBJS:=$(SRCS:src/%.cpp=$(BUILD)/%.o) 
+TARGET=$(BUILD)/rnt
 
 .PHONY: all clean
 
-all: $(TARGET)
-
-%.o: %.cpp
-	@echo "[--] Building object $@"
-	$(CXX) $(CXXFLAGS) -c $< -o $@
-
+all: $(OBJS) $(TARGET)
+# -------------------------------------------
+$(OBJS): $(BUILD)/%.o : src/%.cpp | $(BUILD)
+	@echo $(PREFIX) "Compiling $< to $@"
+	@$(CXX) $(CXXFLAGS) -c $< -o $@
+$(BUILD):
+	@echo $(PREFIX) "Creating build directory..." 
+	@mkdir -p $(BUILD)
+# -------------------------------------------
 $(TARGET): $(OBJS)
-	$(CXX) $(OBJS) -o $(TARGET)
+	@echo $(PREFIX) "Linking objects in "$(BUILD)" with target "$(TARGET)
+	@$(CXX) $(OBJS) -o $(TARGET)
 
 clean:
-	rm -f $(OBJS) $(TARGET)
+
+	@rm -fr $(BUILD)

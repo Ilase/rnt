@@ -9,6 +9,7 @@ SRCS := $(wildcard *.cpp)
        src/rnt-texteditor.cpp \
        src/rnt-sys.cpp \
        src/rnt-configurator.cpp \
+       
        src/rnt-main.cpp 
 OBJ=build/obj
 

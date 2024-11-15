@@ -35,6 +35,15 @@ std::vector<std::vector<std::string>> rnt::sys_call(const char *cmd)
 
 std::string rnt::add_dc(std::string input){
     return "\"" + input + "\"";
+}
+std::ostream& rnt::operator<<(std::ostream& os, const OptionField& field) {
+    os << option(field.first) << " ";
+    for(const auto& arg : field.second){
+        std::visit([&os](const auto& val){
+            os << val << " ";
+        }, arg);
+    }
+    return os;
 };
 
 //------------------------------------------------------------
