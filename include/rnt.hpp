@@ -26,13 +26,15 @@
 #define RNT_ERR "[RNT-ERR] "
 // #define DEBUG "[RNT-DEBUG] "
 
+namespace rnt{
+    enum class _option;
+}
 using TextMatrix = std::vector<std::vector<std::string>>;
 using OptionField = std::pair<rnt::_option, std::vector<std::variant<int, float, std::string, bool>>>;
 
 namespace fs = std::filesystem;
 
-namespace rnt
-{
+namespace rnt {
     /// @brief Handler for my poops
     /// @param exception from catch !
     /// @param additional information;

@@ -65,7 +65,8 @@
         "thread": "cpp",
         "typeinfo": "cpp",
         "variant": "cpp",
-        "regex": "cpp"
+        "regex": "cpp",
+        "bitset": "cpp"
     },
     "makefile.makefilePath": "${workspaceFolder}/Makefile"
 }

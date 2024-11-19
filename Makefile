@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -Iinclude
+CXXFLAGS = -Iinclude -std=c++17
 BUILD = build
 PREFIX = "[RNT] "
 SRCS = $(wildcard src/*.cpp)
