@@ -10,7 +10,7 @@ namespace rnt
     class Section
     {
         std::vector<OptionField> fields;
-        std::vector<OptionField> subsection_fields;
+        std::vector<std::vector<OptionField>> subsection_fields;
 
     public:
         // OptionField get_field(_option) const;
@@ -19,6 +19,7 @@ namespace rnt
         // Returns rnt::OptionField by search
         OptionField &search_field(_option, std::string = "");
         int add_field(OptionField);
+        int delete_field(OptionField&);
     };
 }
 

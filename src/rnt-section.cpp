@@ -64,13 +64,34 @@ OptionField &rnt::Section::search_field(_option opt, std::string opt_s)
                                     }
                                    } },
                                arg);
-                               if(_isMatch){
-                                return line;
-                               }
+                    if (_isMatch)
+                    {
+                        return line;
+                    }
                 }
             }
         }
     }
+    // u dummy :p
     static OptionField dummy = {_option::NOWAY, {"ERROR"}};
     return dummy;
+}
+
+int rnt::Section::add_field(OptionField f)
+{
+    this->fields.push_back(f);
+    return 0;
+}
+
+int rnt::Section::delete_field(OptionField& field)
+{
+    this->fields.erase(
+        std::remove(
+            this->fields.begin(),
+            this->fields.end(),
+            field
+        ),
+        this->fields.end()
+    ); 
+    return 0;
 }
